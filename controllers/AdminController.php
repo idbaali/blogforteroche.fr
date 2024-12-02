@@ -147,7 +147,8 @@ class AdminController {
             'id' => $id, // Si l'id vaut -1, l'article sera ajouté. Sinon, il sera modifié.
             'title' => $title,
             'content' => $content,
-            'id_user' => $_SESSION['idUser']
+            'id_user' => $_SESSION['idUser'],
+            'views' => 0 // Initialisation des vues pour un nouvel article.
         ]);
 
         // On ajoute l'article.
