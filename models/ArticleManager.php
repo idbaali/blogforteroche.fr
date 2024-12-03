@@ -84,6 +84,28 @@ class ArticleManager extends AbstractEntityManager
         ]);
     }
 
+
+    // Début 
+
+    public function getArticleCount(): int {
+        $db = DBManager::getInstance()->getPDO();
+        $query = $db->query("SELECT COUNT(*) as count FROM articles");
+        $result = $query->fetch();
+        return $result['count'];
+    }
+    
+    public function getMostViewedArticles(int $limit = 5): array {
+        $db = DBManager::getInstance()->getPDO();
+        $query = $db->prepare("SELECT * FROM articles ORDER BY views DESC LIMIT :limit");
+        $query->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll();
+    }
+    
+    // Fin
+
+    
+
     /**
      * Supprime un article.
      * @param int $id : l'id de l'article à supprimer.
