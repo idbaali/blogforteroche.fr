@@ -124,7 +124,7 @@ class AdminController
             'article' => $article
         ]);
     }
-    
+
     /**
      * Ajout et modification d'un article. 
      * On sait si un article est ajouté car l'id vaut -1.
@@ -182,20 +182,20 @@ class AdminController
 
 
     // Ici
-    
+
     public function showMonitoringPage(): void
     {
         // Vérifie si l'utilisateur est connecté
         $this->checkIfUserIsConnected();
-    
+
         // Exemple : Récupération de données pour le monitoring
         $userManager = new UserManager();
         $articleManager = new ArticleManager();
-    
+
         $userCount = $userManager->getUserCount(); // Nombre d'utilisateurs
         $articleCount = $articleManager->getArticleCount(); // Nombre d'articles
         $mostViewedArticles = $articleManager->getMostViewedArticles(); // Articles populaires
-    
+
         // Chargement de la vue
         $view = new View("Monitoring");
         $view->render("monitoring", [
@@ -204,7 +204,28 @@ class AdminController
             'mostViewedArticles' => $mostViewedArticles,
         ]);
     }
-     
-}
+
+    public function affichagePage(): void
+    {
+        $orderBy = Utils::request('orderby', 'title');
+        $orderDir = Utils::request('orderdir', 'asc');
+        $validColumns = ['title', 'views', 'comments_count', 'date_creation'];
+        $orderBy = in_array($orderBy, $validColumns) ? $orderBy : 'title';
+        $orderDir = ($orderDir === 'desc') ? 'desc' : 'asc';
     
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getArticlesWithCommentCount($orderBy, $orderDir);
+    
+        $view = new View('Gestion des Articles');
+        $view->render('affichage', [
+            'articles' => $articles,
+            'orderBy' => $orderBy,
+            'orderDir' => $orderDir,
+            'nextOrderDir' => ($orderDir === 'asc') ? 'desc' : 'asc'
+        ]);
+    }
+    
+}
+
+
 

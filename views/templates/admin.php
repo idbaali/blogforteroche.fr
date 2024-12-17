@@ -4,6 +4,7 @@
      * Et un formulaire pour ajouter un article. 
      */
 ?>
+<a class="submit" href="index.php?action=affichagePage">GESTION DES ARTICLES</a>
 
 <h2>Edition des articles</h2>
 

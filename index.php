@@ -80,6 +80,12 @@ try {
             $adminController->showMonitoringPage();
             break;
 
+        case 'affichagePage':
+            $adminController = new AdminController();
+            $adminController->affichagePage();
+            break;
+
+
         default:
             throw new Exception("La page demandée n'existe pas.");
     }

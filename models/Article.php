@@ -9,6 +9,7 @@
     private int $idUser;
     private string $title = "";
     private string $content = "";
+    private int $commentsCount = 0;
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;
     private int $views = 0; // J'ajoute de la propriété pour les vues  
@@ -48,6 +49,24 @@
     public function getTitle() : string 
     {
         return $this->title;
+    }
+
+    /**
+     * Setter pour le titre.
+     * @param string $title
+     */
+    public function setCommentsCount(int $commentsCount) : void 
+    {
+        $this->commentsCount = $commentsCount;
+    }
+
+    /**
+     * Getter pour le titre.
+     * @return string
+     */
+    public function getCommentsCount() : string 
+    {
+        return $this->commentsCount;
     }
 
     /**
