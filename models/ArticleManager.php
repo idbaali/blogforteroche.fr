@@ -133,11 +133,29 @@ class ArticleManager extends AbstractEntityManager
     ";
 
 
-
-
         $result = $this->db->query($sql);
         $articles = [];
 
+        while ($article = $result->fetch()) {
+            $articles[] = new Article($article);
+        }
+        return $articles;
+    }
+
+    public function getaffichagePage(string $orderBy = 'date_creation', string $orderDir = 'asc'): array
+    {
+        // Liste des colonnes valides pour éviter les injections SQL
+        $validColumns = ['title', 'views', 'date_creation', 'date_update'];
+        if (!in_array($orderBy, $validColumns)) {
+            $orderBy = 'date_creation';
+        }
+
+        $orderDir = ($orderDir === 'desc') ? 'DESC' : 'ASC';
+
+        $sql = "SELECT * FROM article ORDER BY $orderBy $orderDir";
+        $result = $this->db->query($sql);
+
+        $articles = [];
         while ($article = $result->fetch()) {
             $articles[] = new Article($article);
         }

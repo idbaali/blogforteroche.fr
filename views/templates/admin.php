@@ -5,6 +5,8 @@
      */
 ?>
 <a class="submit" href="index.php?action=affichagePage">GESTION DES ARTICLES</a>
+<!-- <a class="submit" href="index.php?action=deleteComment">Gestion des Commentaires</a> -->
+
 
 <h2>Edition des articles</h2>
 

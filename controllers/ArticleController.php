@@ -1,12 +1,12 @@
-<?php 
+<?php
 
-class ArticleController 
+class ArticleController
 {
     /**
      * Affiche la page d'accueil.
      * @return void
      */
-    public function showHome() : void
+    public function showHome(): void
     {
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticles();
@@ -19,14 +19,14 @@ class ArticleController
      * Affiche le détail d'un article.
      * @return void
      */
-    public function showArticle() : void
+    public function showArticle(): void
     {
         // Récupération de l'id de l'article demandé.
         $id = Utils::request("id", -1);
 
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
-        
+
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
@@ -42,17 +42,43 @@ class ArticleController
      * Affiche le formulaire d'ajout d'un article.
      * @return void
      */
-    public function addArticle() : void
+    public function addArticle(): void
     {
         $view = new View("Ajouter un article");
         $view->render("addArticle");
     }
 
+    // Début
+
+    public function showaffichagePage(): void
+    {
+        // Récupération des paramètres de tri
+        $orderBy = Utils::request('sort', 'date_creation');
+        $orderDir = Utils::request('order', 'asc');
+
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getaffichagePage($orderBy, $orderDir);
+
+        // Inverser l'ordre pour le prochain clic
+        $nextOrderDir = ($orderDir === 'asc') ? 'desc' : 'asc';
+
+        $view = new View("Articles triés");
+        $view->render("sortedArticles", [
+            'articles' => $articles,
+            'nextOrderDir' => $nextOrderDir,
+            'currentSort' => $orderBy,
+        ]);
+    }
+
+    // Fin
+
+
     /**
      * Affiche la page "à propos".
      * @return void
      */
-    public function showApropos() {
+    public function showApropos()
+    {
         $view = new View("A propos");
         $view->render("apropos");
     }

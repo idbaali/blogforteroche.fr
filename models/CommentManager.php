@@ -54,6 +54,8 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
+    
+
     /**
      * Supprime un commentaire.
      * @param Comment $comment : l'objet Comment à supprimer.
@@ -65,5 +67,6 @@ class CommentManager extends AbstractEntityManager
         $result = $this->db->query($sql, ['id' => $comment->getId()]);
         return $result->rowCount() > 0;
     }
+    
 
 }
