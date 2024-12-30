@@ -1,12 +1,12 @@
 <?php
 
-class CommentController 
+class CommentController
 {
     /**
      * Ajoute un commentaire.
      * @return void
      */
-    public function addComment() : void
+    public function addComment(): void
     {
         // Récupération des données du formulaire.
         $pseudo = Utils::request("pseudo");
@@ -45,16 +45,41 @@ class CommentController
         Utils::redirect("showArticle", ['id' => $idArticle]);
     }
 
+
+
+    public function showComment(): void
+    {
+        $articleId = Utils::request("articleId", 0);
+        $currentPage = Utils::request("page", 1);
+
+
+
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getCommentsPaginated($articleId, $currentPage, 10);
+        $totalComments = $commentManager->countComments($articleId);
+
+        $view = new View('Gestion des commentaires');
+        $view->render('showComment', [
+            'comments' => $comments,
+            'totalPages' => ceil($totalComments / 10),
+            'currentPage' => $currentPage,
+            'articleId' => $articleId
+        ]);
+    }
+
+    /**
+     * Supprime un commentaire.
+     */
     public function deleteComment(): void
     {
         $commentId = Utils::request("commentId", -1);
         if ($commentId > 0) {
             $commentManager = new CommentManager();
-            $commentManager->deleteComment($commentId);
+
+
+            $commentManager->deleteCommentById($commentId);
         }
-        header("Location: ?action=showComments");
+        header("Location: index.php?action=showComment");
         exit;
     }
-
-    
 }

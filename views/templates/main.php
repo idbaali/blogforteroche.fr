@@ -27,7 +27,7 @@
             <a href="index.php?action=apropos">À propos</a>
 
             <!-- Ici -->
-            <a href="index.php?action=showMonitoringPage">Page de Monitoring</a>
+            <a href="index.php?action=admin">Page de Monitoring</a>
             <?php
             // Si on est connecté, on affiche le bouton de déconnexion, sinon, on affiche le bouton de connexion : 
             if (isset($_SESSION['user'])) {

@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; cursor: pointer; }
-        .sorted { font-weight: bold; }
-        .sorted.asc::after { content: " ▲"; }
-        .sorted.desc::after { content: " ▼"; }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+
+        .sorted {
+            font-weight: bold;
+        }
+
+        .sorted.asc::after {
+            content: " ▲";
+        }
+
+        .sorted.desc::after {
+            content: " ▼";
+        }
     </style>
-    <title>Gestion des Articles</title>
+    <!-- <title>Gestion des Articles</title> -->
 </head>
+
 <body>
+
+    <a class="submit" href="index.php?action=showComment">Gestion des Commentaires</a>
+
     <h1>Gestion des Articles</h1>
     <table>
         <thead>
@@ -36,5 +63,5 @@
         </tbody>
     </table>
 </body>
-</html>
 
+</html>

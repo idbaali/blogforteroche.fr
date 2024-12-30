@@ -85,6 +85,11 @@ try {
             $adminController->affichagePage();
             break;
 
+        case 'showComment':
+            $commentController = new CommentController();
+            $commentController->showComment();
+            break;
+
         case 'deleteComment':
             $commentController = new CommentController();
             $commentController->deleteComment();

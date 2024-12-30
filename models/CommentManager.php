@@ -10,7 +10,7 @@ class CommentManager extends AbstractEntityManager
      * @param int $idArticle : l'id de l'article.
      * @return array : un tableau d'objets Comment.
      */
-    public function getAllCommentsByArticleId(int $idArticle) : array
+    public function getAllCommentsByArticleId(int $idArticle): array
     {
         $sql = "SELECT * FROM comment WHERE id_article = :idArticle";
         $result = $this->db->query($sql, ['idArticle' => $idArticle]);
@@ -27,7 +27,7 @@ class CommentManager extends AbstractEntityManager
      * @param int $id : l'id du commentaire.
      * @return Comment|null : un objet Comment ou null si le commentaire n'existe pas.
      */
-    public function getCommentById(int $id) : ?Comment
+    public function getCommentById(int $id): ?Comment
     {
         $sql = "SELECT * FROM comment WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $id]);
@@ -43,7 +43,7 @@ class CommentManager extends AbstractEntityManager
      * @param Comment $comment : l'objet Comment à ajouter.
      * @return bool : true si l'ajout a réussi, false sinon.
      */
-    public function addComment(Comment $comment) : bool
+    public function addComment(Comment $comment): bool
     {
         $sql = "INSERT INTO comment (pseudo, content, id_article, date_creation) VALUES (:pseudo, :content, :idArticle, NOW())";
         $result = $this->db->query($sql, [
@@ -54,19 +54,87 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
+
+
+
+    public function getCommentsPaginated(int $articleId, int $page, int $commentsPerPage): array
+    {
+        $offset = ($page - 1) * $commentsPerPage; // Calcul de l'offset
+        $sql = "SELECT * FROM comment";
+        $params = [];
+
+        // Si un articleId est fourni, on ajoute une clause WHERE
+        if ($articleId > 0) {
+            $sql .= " WHERE id_article = :articleId";
+            $params['articleId'] = $articleId;
+        }
+
+        // Ajouter la clause ORDER BY et LIMIT avec les valeurs calculées
+        $sql .= " ORDER BY date_creation DESC LIMIT $offset, $commentsPerPage";
+
+        // Préparation de la requête
+        $query = $this->db->query($sql);
+
+        // Bind des paramètres (uniquement ceux utilisés)
+        if ($articleId > 0) {
+
+
+            $query->bindValue(':articleId', $articleId, PDO::PARAM_INT);
+        }
+
+        // Exécution de la requête
+        $query->execute();
+
+        // Récupération des résultats
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+    /**
+     * Compte le nombre de commentaires.
+     */
+    public function countComments(int $articleId): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM comment";
+        $params = [];
+
+        if ($articleId > 0) {
+            $sql .= " WHERE id_article = :articleId";
+            $params['articleId'] = $articleId;
+        }
+
+        $query = $this->db->query($sql);
+
+
+        $query->execute($params);
+        return (int) $query->fetchColumn();
+    }
+
+    /**
+     * Supprime un commentaire par ID.
+     */
+    public function deleteCommentById(int $commentId)
+    {
+        
+        $sql = "DELETE FROM comment WHERE id = :id";
+        $this->db->query($sql, ['id' => $commentId]);
+
+    }
     
+
+
 
     /**
      * Supprime un commentaire.
      * @param Comment $comment : l'objet Comment à supprimer.
      * @return bool : true si la suppression a réussi, false sinon.
      */
-    public function deleteComment(Comment $comment) : bool
+    public function deleteComment(Comment $comment): bool
     {
         $sql = "DELETE FROM comment WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $comment->getId()]);
         return $result->rowCount() > 0;
     }
-    
-
 }
