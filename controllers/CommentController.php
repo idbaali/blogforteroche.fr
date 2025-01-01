@@ -8,6 +8,14 @@ class CommentController
      */
     public function addComment(): void
     {
+        // Vérifier si l'utilisateur est connecté
+        $this->checkIfUserIsConnected();
+
+        if (!isset($_SESSION['user'])) {
+            // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+            header('Location: index.php?action=login');
+            exit;
+        }
         // Récupération des données du formulaire.
         $pseudo = Utils::request("pseudo");
         $content = Utils::request("content");

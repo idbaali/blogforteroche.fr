@@ -1,102 +1,92 @@
-<!DOCTYPE html>
-<html>
+<title>Gestion des Commentaires</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-<head>
-    <title>Gestion des Commentaires</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
 
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
-        }
+    th {
+        background-color: #f4f4f4;
+    }
 
-        th {
-            background-color: #f4f4f4;
-        }
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
 
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
+    .pagination a {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #007bff;
+    }
 
-        .pagination a {
-            margin: 0 5px;
-            text-decoration: none;
-            color: #007bff;
-        }
+    .pagination a.active {
+        font-weight: bold;
+        text-decoration: underline;
+    }
 
-        .pagination a.active {
-            font-weight: bold;
-            text-decoration: underline;
-        }
+    .filter {
+        margin-bottom: 20px;
+    }
+</style>
 
-        .filter {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
+<h1>Gestion des Commentaires</h1>
 
-<body>
-    <h1>Gestion des Commentaires</h1>
+<div class="filter">
+    <form method="GET" action="showComment.php">
+        <label for="articleId">Filtrer par article :</label>
+        <input type="number" name="articleId" id="articleId" value="<?= htmlspecialchars($_GET['articleId'] ?? '') ?>">
+        <button type="submit">Appliquer</button>
+    </form>
+</div>
 
-    <div class="filter">
-        <form method="GET" action="showComment.php">
-            <label for="articleId">Filtrer par article :</label>
-            <input type="number" name="articleId" id="articleId" value="<?= htmlspecialchars($_GET['articleId'] ?? '') ?>">
-            <button type="submit">Appliquer</button>
-        </form>
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Article</th>
-                <th>Pseudo</th>
-                <th>Commentaire</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($comments)): ?>
-                <?php foreach ($comments as $comment): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($comment['id']) ?></td>
-                        <td><?= htmlspecialchars($comment['id_article']) ?></td>
-                        <td><?= htmlspecialchars($comment['pseudo']) ?></td>
-                        <td><?= htmlspecialchars($comment['content']) ?></td>
-                        <td><?= htmlspecialchars($comment['date_creation']) ?></td>
-                        <td>
-                            <a href="?action=deleteComment&commentId=<?= $comment['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire ?');">
-                                Supprimer
-                            </a>
-
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Article</th>
+            <th>Pseudo</th>
+            <th>Commentaire</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($comments)): ?>
+            <?php foreach ($comments as $comment): ?>
                 <tr>
-                    <td colspan="6">Aucun commentaire trouvé.</td>
+                    <td><?= htmlspecialchars($comment->getId()) ?></td>
+                    <td><?= htmlspecialchars($comment->getIdArticle()) ?></td>
+                    <td><?= htmlspecialchars($comment->getPseudo()) ?></td>
+                    <td><?= htmlspecialchars($comment->getContent()) ?></td>
+                    <td><?= htmlspecialchars($comment->getDateCreation()->format('Y-m-d H:i:s')) ?></td>
+                    <td>
+                        <a href="?action=deleteComment&commentId=<?= $comment->getId() ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire ?');">
+                            Supprimer
+                        </a>
+                    </td>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="6">Aucun commentaire trouvé.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 
-    <div class="pagination">
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="showComment.php?page=<?= $i ?>&<?= http_build_query($_GET) ?>"
-                class="<?= $i == $currentPage ? 'active' : '' ?>">
-                <?= $i ?>
-            </a>
-        <?php endfor; ?>
-    </div>
-</body>
-
-</html>
+<div class="pagination">
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <a href="showComment.php?page=<?= $i ?>&articleId=<?= $articleId ?>"
+            class="<?= $i == $currentPage ? 'active' : '' ?>">
+            <?= $i ?>
+        </a>
+    <?php endfor; ?>
+</div>

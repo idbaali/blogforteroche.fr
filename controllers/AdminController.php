@@ -14,7 +14,7 @@ class AdminController
     public function showAdmin(): void
     {
         // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
+        $this->checkIfUserIsConnected(); // Cette fonction devrait vérifier la session.
 
         // On récupère les articles.
         $articleManager = new ArticleManager();
@@ -188,13 +188,21 @@ class AdminController
         // Vérifie si l'utilisateur est connecté
         $this->checkIfUserIsConnected();
 
-        // Exemple : Récupération de données pour le monitoring
+        // Gestion du tri
+        $orderBy = Utils::request('orderby', 'title');
+        $orderDir = Utils::request('orderdir', 'asc');
+        $validColumns = ['title', 'views', 'comments_count', 'date_creation'];
+        $orderBy = in_array($orderBy, $validColumns) ? $orderBy : 'title';
+        $orderDir = ($orderDir === 'desc') ? 'desc' : 'asc';
+
+        // Récupération des données
         $userManager = new UserManager();
         $articleManager = new ArticleManager();
 
-        $userCount = $userManager->getUserCount(); // Nombre d'utilisateurs
-        $articleCount = $articleManager->getArticleCount(); // Nombre d'articles
-        $mostViewedArticles = $articleManager->getMostViewedArticles(); // Articles populaires
+        $userCount = $userManager->getUserCount();
+        $articleCount = $articleManager->getArticleCount();
+        $mostViewedArticles = $articleManager->getMostViewedArticles();
+        $articles = $articleManager->getArticlesWithCommentCount($orderBy, $orderDir);
 
         // Chargement de la vue
         $view = new View("Monitoring");
@@ -202,30 +210,10 @@ class AdminController
             'userCount' => $userCount,
             'articleCount' => $articleCount,
             'mostViewedArticles' => $mostViewedArticles,
-        ]);
-    }
-
-    public function affichagePage(): void
-    {
-        $orderBy = Utils::request('orderby', 'title');
-        $orderDir = Utils::request('orderdir', 'asc');
-        $validColumns = ['title', 'views', 'comments_count', 'date_creation'];
-        $orderBy = in_array($orderBy, $validColumns) ? $orderBy : 'title';
-        $orderDir = ($orderDir === 'desc') ? 'desc' : 'asc';
-    
-        $articleManager = new ArticleManager();
-        $articles = $articleManager->getArticlesWithCommentCount($orderBy, $orderDir);
-    
-        $view = new View('Gestion des Articles');
-        $view->render('affichage', [
             'articles' => $articles,
             'orderBy' => $orderBy,
             'orderDir' => $orderDir,
             'nextOrderDir' => ($orderDir === 'asc') ? 'desc' : 'asc'
         ]);
     }
-    
 }
-
-
-

@@ -50,14 +50,14 @@ class ArticleController
 
     // Début
 
-    public function showaffichagePage(): void
+    public function showMonitoringPage(): void
     {
         // Récupération des paramètres de tri
         $orderBy = Utils::request('sort', 'date_creation');
         $orderDir = Utils::request('order', 'asc');
 
         $articleManager = new ArticleManager();
-        $articles = $articleManager->getaffichagePage($orderBy, $orderDir);
+        $articles = $articleManager->getshowMonitoringPage($orderBy, $orderDir);
 
         // Inverser l'ordre pour le prochain clic
         $nextOrderDir = ($orderDir === 'asc') ? 'desc' : 'asc';

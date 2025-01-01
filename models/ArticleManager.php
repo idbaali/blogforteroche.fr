@@ -142,7 +142,7 @@ class ArticleManager extends AbstractEntityManager
         return $articles;
     }
 
-    public function getaffichagePage(string $orderBy = 'date_creation', string $orderDir = 'asc'): array
+    public function getshowMonitoringPage(string $orderBy = 'date_creation', string $orderDir = 'asc'): array
     {
         // Liste des colonnes valides pour éviter les injections SQL
         $validColumns = ['title', 'views', 'date_creation', 'date_update'];

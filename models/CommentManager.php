@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Cette classe sert à gérer les commentaires. 
- */
 class CommentManager extends AbstractEntityManager
 {
     /**
@@ -32,10 +29,7 @@ class CommentManager extends AbstractEntityManager
         $sql = "SELECT * FROM comment WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $id]);
         $comment = $result->fetch();
-        if ($comment) {
-            return new Comment($comment);
-        }
-        return null;
+        return $comment ? new Comment($comment) : null;
     }
 
     /**
@@ -54,43 +48,43 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
-
-
-
+    /**
+     * Récupère les commentaires paginés d'un article.
+     */
     public function getCommentsPaginated(int $articleId, int $page, int $commentsPerPage): array
     {
-        $offset = ($page - 1) * $commentsPerPage; // Calcul de l'offset
+        $offset = ($page - 1) * $commentsPerPage;
         $sql = "SELECT * FROM comment";
         $params = [];
 
-        // Si un articleId est fourni, on ajoute une clause WHERE
+        // Filtrage par articleId
         if ($articleId > 0) {
             $sql .= " WHERE id_article = :articleId";
             $params['articleId'] = $articleId;
         }
 
-        // Ajouter la clause ORDER BY et LIMIT avec les valeurs calculées
+        // Pagination et tri
         $sql .= " ORDER BY date_creation DESC LIMIT $offset, $commentsPerPage";
 
         // Préparation de la requête
         $query = $this->db->query($sql);
 
-        // Bind des paramètres (uniquement ceux utilisés)
+        // Liaison des paramètres
         if ($articleId > 0) {
-
-
             $query->bindValue(':articleId', $articleId, PDO::PARAM_INT);
         }
 
         // Exécution de la requête
         $query->execute();
 
-        // Récupération des résultats
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        // Récupération des résultats sous forme d'objets Comment
+        $comments = [];
+        while ($row = $query->fetch()) {
+            $comments[] = new Comment($row);
+        }
+
+        return $comments;
     }
-
-
-
 
     /**
      * Compte le nombre de commentaires.
@@ -106,8 +100,6 @@ class CommentManager extends AbstractEntityManager
         }
 
         $query = $this->db->query($sql);
-
-
         $query->execute($params);
         return (int) $query->fetchColumn();
     }
@@ -115,26 +107,9 @@ class CommentManager extends AbstractEntityManager
     /**
      * Supprime un commentaire par ID.
      */
-    public function deleteCommentById(int $commentId)
+    public function deleteCommentById(int $commentId): void
     {
-        
         $sql = "DELETE FROM comment WHERE id = :id";
         $this->db->query($sql, ['id' => $commentId]);
-
-    }
-    
-
-
-
-    /**
-     * Supprime un commentaire.
-     * @param Comment $comment : l'objet Comment à supprimer.
-     * @return bool : true si la suppression a réussi, false sinon.
-     */
-    public function deleteComment(Comment $comment): bool
-    {
-        $sql = "DELETE FROM comment WHERE id = :id";
-        $result = $this->db->query($sql, ['id' => $comment->getId()]);
-        return $result->rowCount() > 0;
     }
 }

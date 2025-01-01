@@ -80,10 +80,10 @@ try {
             $adminController->showMonitoringPage();
             break;
 
-        case 'affichagePage':
-            $adminController = new AdminController();
-            $adminController->affichagePage();
-            break;
+        // case 'affichagePage':
+        //     $adminController = new AdminController();
+        //     $adminController->affichagePage();
+        //     break;
 
         case 'showComment':
             $commentController = new CommentController();
