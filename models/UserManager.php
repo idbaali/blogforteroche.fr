@@ -27,7 +27,7 @@ class UserManager extends AbstractEntityManager
 
     public function getUserCount(): int {
         $db = DBManager::getInstance()->getPDO();
-        $query = $db->query("SELECT COUNT(*) as count FROM users");
+        $query = $db->query("SELECT COUNT(*) as count FROM user");
         $result = $query->fetch();
         return $result['count'];
     }

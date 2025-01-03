@@ -75,15 +75,13 @@ try {
             break;
 
             // Ici
+
         case 'showMonitoringPage':
+            // echo "Routage vers showMonitoringPage <br>";
+
             $adminController = new AdminController();
             $adminController->showMonitoringPage();
             break;
-
-        // case 'affichagePage':
-        //     $adminController = new AdminController();
-        //     $adminController->affichagePage();
-        //     break;
 
         case 'showComment':
             $commentController = new CommentController();

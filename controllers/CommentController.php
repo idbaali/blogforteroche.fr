@@ -9,7 +9,7 @@ class CommentController
     public function addComment(): void
     {
         // Vérifier si l'utilisateur est connecté
-        $this->checkIfUserIsConnected();
+        // $this->checkIfUserIsConnected();
 
         if (!isset($_SESSION['user'])) {
             // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion

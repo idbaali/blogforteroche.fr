@@ -59,7 +59,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function addArticle(Article $article): void
     {
-        $sql = "INSERT INTO article (id_user, title, content, views, date_creation) VALUES (:id_user, :title, :content, NOW())";
+        $sql = "INSERT INTO article (id_user, title, content, views, date_creation) VALUES (:id_user, :title, :content, :views, NOW())";
         $this->db->query($sql, [
             'id_user' => $article->getIdUser(),
             'title' => $article->getTitle(),
@@ -67,6 +67,7 @@ class ArticleManager extends AbstractEntityManager
             'views' => $article->getViews()
         ]);
     }
+
 
     /**
      * Modifie un article.
@@ -113,6 +114,7 @@ class ArticleManager extends AbstractEntityManager
      * @param string $orderDir : Direction du tri ('asc' ou 'desc').
      * @return array : Tableau d'articles avec leur nombre de commentaires.
      */
+    
     public function getArticlesWithCommentCount(string $orderBy = 'title', string $orderDir = 'asc'): array
     {
         // Sécurité : Liste des colonnes valides pour le tri

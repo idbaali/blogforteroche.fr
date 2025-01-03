@@ -8,6 +8,7 @@
 <a class="submit" href="index.php?action=showMonitoringPage">GESTION DES ARTICLES</a>
 
 
+
 <h2>Edition des articles</h2>
 
 <div class="adminArticle">

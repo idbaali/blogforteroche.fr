@@ -1,4 +1,6 @@
-<h2>Monitoring</h2>
+<a class="submit" href="index.php?action=showComment">ACCEDEZ AUX COMMENTAIRES</a>
+<a class="" href="index.php?action=admin">RETOUR</a>
+
 
 <p>Nombre d'utilisateurs : <?= $userCount ?></p>
 <p>Nombre d'articles : <?= $articleCount ?></p>
@@ -12,10 +14,10 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($mostViewedArticles as $article): ?>
+        <?php foreach ($articles as $article): ?>
             <tr>
-                <td><?= htmlspecialchars($article->getTitle()) ?></td>
-                <td><?= $article->getViews() ?> vues</td>
+                <td><?php echo $article->getTitle(); ?></td>
+                <td><?php echo $article->getViews(); ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

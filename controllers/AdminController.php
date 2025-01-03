@@ -204,6 +204,9 @@ class AdminController
         $mostViewedArticles = $articleManager->getMostViewedArticles();
         $articles = $articleManager->getArticlesWithCommentCount($orderBy, $orderDir);
 
+        // var_dump($mostViewedArticles);
+        // die();
+
         // Chargement de la vue
         $view = new View("Monitoring");
         $view->render("monitoring", [

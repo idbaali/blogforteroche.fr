@@ -39,6 +39,8 @@
 
 <h1>Gestion des Commentaires</h1>
 
+<a class="submit" href="index.php?action=showMonitoringPage">RETOUR</a>
+
 <div class="filter">
     <form method="GET" action="showComment.php">
         <label for="articleId">Filtrer par article :</label>
