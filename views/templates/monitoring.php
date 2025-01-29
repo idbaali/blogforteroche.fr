@@ -2,26 +2,9 @@
 <a class="" href="index.php?action=admin">RETOUR</a>
 
 
-<p>Nombre d'utilisateurs : <?= $userCount ?></p>
-<p>Nombre d'articles : <?= $articleCount ?></p>
+<!-- <p>Nombre d'utilisateurs : <?= $userCount ?></p>
+<p>Nombre d'articles : <?= $articleCount ?></p> -->
 
-<h3>Articles les plus consultés</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Nombre de vues</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($articles as $article): ?>
-            <tr>
-                <td><?php echo $article->getTitle(); ?></td>
-                <td><?php echo $article->getViews(); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
 
 <h3>Gestion des Articles</h3>
 <table>
