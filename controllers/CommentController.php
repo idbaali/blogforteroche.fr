@@ -8,14 +8,15 @@ class CommentController
      */
     public function addComment(): void
     {
+        // ICI
         // Vérifier si l'utilisateur est connecté
-        // $this->checkIfUserIsConnected();
-
         if (!isset($_SESSION['user'])) {
             // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
             header('Location: index.php?action=login');
             exit;
         }
+        // FIN
+
         // Récupération des données du formulaire.
         $pseudo = Utils::request("pseudo");
         $content = Utils::request("content");
@@ -53,14 +54,11 @@ class CommentController
         Utils::redirect("showArticle", ['id' => $idArticle]);
     }
 
-
-
+    // ICI 
     public function showComment(): void
     {
         $articleId = Utils::request("articleId", 0);
         $currentPage = Utils::request("page", 1);
-
-
 
         $commentManager = new CommentManager();
         $comments = $commentManager->getCommentsPaginated($articleId, $currentPage, 10);
@@ -83,11 +81,10 @@ class CommentController
         $commentId = Utils::request("commentId", -1);
         if ($commentId > 0) {
             $commentManager = new CommentManager();
-
-
             $commentManager->deleteCommentById($commentId);
         }
         header("Location: index.php?action=showComment");
         exit;
     }
+    // FIN
 }

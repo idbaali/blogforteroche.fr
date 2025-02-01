@@ -13,7 +13,7 @@
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;
     private int $views = 0; // J'ajoute de la propriété pour les vues  
-
+    // ICI
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -51,8 +51,9 @@
         return $this->title;
     }
 
+    // ICI
     /**
-     * Setter pour le titre.
+     * Setter pour le comment.
      * @param string $title
      */
     public function setCommentsCount(int $commentsCount) : void 
@@ -61,13 +62,14 @@
     }
 
     /**
-     * Getter pour le titre.
+     * Getter pour le comment.
      * @return string
      */
     public function getCommentsCount() : string 
     {
         return $this->commentsCount;
     }
+    // FIN
 
     /**
      * Setter pour le contenu.
@@ -78,7 +80,6 @@
         $this->content = $content;
     }
 
-    
     /**
      * Getter pour le contenu.
      * Retourne les $length premiers caractères du contenu.
@@ -149,13 +150,11 @@
         return $this->dateUpdate;
     }
 
+    // ICI
     /**
      * Setter pour le nombre de vues.
      * @param int $views
      */
-
-
-
      
     public function setViews(int $views) : void    
     {
@@ -167,9 +166,9 @@
      * @return int
      */
     public function getViews() : int 
-    {
-        
+    {      
   
     return $this->views;
     }
+    // FIN
  }

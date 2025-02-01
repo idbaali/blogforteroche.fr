@@ -1,15 +1,16 @@
-<?php
+<style>
+/* monitoring */
+.header-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
 
-/** 
- * Affichage de la partie admin : liste des articles avec un bouton "modifier" pour chacun. 
- * Et un formulaire pour ajouter un article. 
- */
-?>
-<a class="submit" href="index.php?action=showMonitoringPage">GESTION DES ARTICLES</a>
-
-
-
-<h2>Edition des articles</h2>
+<div class="header-links">
+    <h2>Édition des articles</h2>
+    <a class="rechts" href="index.php?action=showMonitoringPage">GESTION DES ARTICLES</a>
+</div>
 
 <div class="adminArticle">
     <?php foreach ($articles as $article) { ?>

@@ -48,8 +48,17 @@ class ArticleController
         $view->render("addArticle");
     }
 
-    // Début
+    /**
+     * Affiche la page "à propos".
+     * @return void
+     */
+    public function showApropos()
+    {
+        $view = new View("A propos");
+        $view->render("apropos");
+    }
 
+    // ICI
     public function showMonitoringPage(): void
     {
         // Récupération des paramètres de tri
@@ -69,17 +78,5 @@ class ArticleController
             'currentSort' => $orderBy,
         ]);
     }
-
-    // Fin
-
-
-    /**
-     * Affiche la page "à propos".
-     * @return void
-     */
-    public function showApropos()
-    {
-        $view = new View("A propos");
-        $view->render("apropos");
-    }
+    // FIN  
 }

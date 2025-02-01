@@ -67,18 +67,3 @@ class DBManager
         return $query;
     }
 }
-
-
-
-
-//      public function query(string $sql, ?array $params = null): PDOStatement
-//      {
-//          if ($params === null) {
-//              return $this->db->query($sql);
-//          } else {
-//              $stmt = $this->db->prepare($sql); 
-//              $stmt->execute($params);
-//              return $stmt;
-//          }
-//      }
-//  }

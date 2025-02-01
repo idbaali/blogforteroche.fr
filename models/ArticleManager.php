@@ -64,10 +64,9 @@ class ArticleManager extends AbstractEntityManager
             'id_user' => $article->getIdUser(),
             'title' => $article->getTitle(),
             'content' => $article->getContent(),
-            'views' => $article->getViews()
-        ]);
+            'views' => $article->getViews() // ICI 
+        ]);    
     }
-
 
     /**
      * Modifie un article.
@@ -81,12 +80,23 @@ class ArticleManager extends AbstractEntityManager
             'title' => $article->getTitle(),
             'content' => $article->getContent(),
             'id' => $article->getId(),
-            'views' => $article->getViews()
+            'views' => $article->getViews() // ICI
         ]);
     }
 
+     /**
+     * Supprime un article.
+     * @param int $id : l'id de l'article à supprimer.
+     * @return void
+     */
+    public function deleteArticle(int $id): void
+    {
+        $sql = "DELETE FROM article WHERE id = :id";
+        $this->db->query($sql, ['id' => $id]);
+    }
 
-    // Début 
+
+    // ICI 
 
     public function getArticleCount(): int
     {
@@ -98,8 +108,6 @@ class ArticleManager extends AbstractEntityManager
 
     public function getMostViewedArticles(int $limit = 5): array
     {
-
-
         $db = DBManager::getInstance()->getPDO();
         $query = $db->prepare("SELECT * FROM article ORDER BY views DESC LIMIT :limit");
         $query->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -133,8 +141,6 @@ class ArticleManager extends AbstractEntityManager
         GROUP BY a.id
         ORDER BY $orderBy $orderDir
     ";
-
-
         $result = $this->db->query($sql);
         $articles = [];
 
@@ -151,32 +157,19 @@ class ArticleManager extends AbstractEntityManager
         if (!in_array($orderBy, $validColumns)) {
             $orderBy = 'date_creation';
         }
-
         $orderDir = ($orderDir === 'desc') ? 'DESC' : 'ASC';
 
         $sql = "SELECT * FROM article ORDER BY $orderBy $orderDir";
         $result = $this->db->query($sql);
-
         $articles = [];
         while ($article = $result->fetch()) {
             $articles[] = new Article($article);
         }
         return $articles;
     }
+    // FIN
 
 
-    // Fin
 
 
-
-    /**
-     * Supprime un article.
-     * @param int $id : l'id de l'article à supprimer.
-     * @return void
-     */
-    public function deleteArticle(int $id): void
-    {
-        $sql = "DELETE FROM article WHERE id = :id";
-        $this->db->query($sql, ['id' => $id]);
-    }
 }

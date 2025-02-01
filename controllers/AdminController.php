@@ -6,7 +6,6 @@
 
 class AdminController
 {
-
     /**
      * Affiche la page d'administration.
      * @return void
@@ -144,6 +143,7 @@ class AdminController
             throw new Exception("Tous les champs sont obligatoires. 2");
         }
 
+        // ICI 
         // On crée l'objet Article.
         $article = new Article([
             'id' => $id, // Si l'id vaut -1, l'article sera ajouté. Sinon, il sera modifié.
@@ -152,6 +152,7 @@ class AdminController
             'id_user' => $_SESSION['idUser'],
             'views' => 0 // Initialisation des vues pour un nouvel article.
         ]);
+        // FIN
 
         // On ajoute l'article.
         $articleManager = new ArticleManager();
@@ -160,8 +161,6 @@ class AdminController
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
-
-
     /**
      * Suppression d'un article.
      * @return void
@@ -180,9 +179,7 @@ class AdminController
         Utils::redirect("admin");
     }
 
-
-    // Ici
-
+    // ICI
     public function showMonitoringPage(): void
     {
         // Vérifie si l'utilisateur est connecté
@@ -219,4 +216,6 @@ class AdminController
             'nextOrderDir' => ($orderDir === 'asc') ? 'desc' : 'asc'
         ]);
     }
+    // FIN
 }
+
