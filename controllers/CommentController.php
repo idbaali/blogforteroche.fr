@@ -8,14 +8,12 @@ class CommentController
      */
     public function addComment(): void
     {
-        // ICI
         // Vérifier si l'utilisateur est connecté
         if (!isset($_SESSION['user'])) {
             // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
             header('Location: index.php?action=login');
             exit;
         }
-        // FIN
 
         // Récupération des données du formulaire.
         $pseudo = Utils::request("pseudo");
@@ -54,7 +52,6 @@ class CommentController
         Utils::redirect("showArticle", ['id' => $idArticle]);
     }
 
-    // ICI 
     public function showComment(): void
     {
         $articleId = Utils::request("articleId", 0);
@@ -86,5 +83,4 @@ class CommentController
         header("Location: index.php?action=showComment");
         exit;
     }
-    // FIN
 }

@@ -65,7 +65,7 @@ class ArticleManager extends AbstractEntityManager
             'title' => $article->getTitle(),
             'content' => $article->getContent(),
             'views' => $article->getViews() // ICI 
-        ]);    
+        ]);
     }
 
     /**
@@ -84,7 +84,7 @@ class ArticleManager extends AbstractEntityManager
         ]);
     }
 
-     /**
+    /**
      * Supprime un article.
      * @param int $id : l'id de l'article à supprimer.
      * @return void
@@ -94,9 +94,6 @@ class ArticleManager extends AbstractEntityManager
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
-
-
-    // ICI 
 
     public function getArticleCount(): int
     {
@@ -122,7 +119,7 @@ class ArticleManager extends AbstractEntityManager
      * @param string $orderDir : Direction du tri ('asc' ou 'desc').
      * @return array : Tableau d'articles avec leur nombre de commentaires.
      */
-    
+
     public function getArticlesWithCommentCount(string $orderBy = 'title', string $orderDir = 'asc'): array
     {
         // Sécurité : Liste des colonnes valides pour le tri
@@ -167,9 +164,10 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
-    // FIN
 
-
-
-
+    public function incrementViews(int $id): void
+    {
+        $db = $this->db; // Connexion à la base de données
+        $query = $db->query("UPDATE article SET views = views + 1 WHERE id = :id", ['id' => $id]);
+    }
 }

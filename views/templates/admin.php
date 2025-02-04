@@ -1,15 +1,25 @@
 <style>
-/* monitoring */
-.header-links {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    /* monitoring */
+    .header-links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .rechts {
+        padding: 5px 10px;
+        font-weight: bold;
+        color: white;
+        background-color: var(--commentColor);
+        border: none;
+        width: 210px;
+    }
 </style>
 
 <div class="header-links">
     <h2>Édition des articles</h2>
-    <a class="rechts" href="index.php?action=showMonitoringPage">GESTION DES ARTICLES</a>
+    <a class="rechts" href="index.php?action=showMonitoringPage">Accéder aux articles</a>
 </div>
 
 <div class="adminArticle">

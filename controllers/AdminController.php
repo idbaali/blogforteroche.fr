@@ -143,7 +143,6 @@ class AdminController
             throw new Exception("Tous les champs sont obligatoires. 2");
         }
 
-        // ICI 
         // On crée l'objet Article.
         $article = new Article([
             'id' => $id, // Si l'id vaut -1, l'article sera ajouté. Sinon, il sera modifié.
@@ -152,7 +151,6 @@ class AdminController
             'id_user' => $_SESSION['idUser'],
             'views' => 0 // Initialisation des vues pour un nouvel article.
         ]);
-        // FIN
 
         // On ajoute l'article.
         $articleManager = new ArticleManager();
@@ -179,7 +177,6 @@ class AdminController
         Utils::redirect("admin");
     }
 
-    // ICI
     public function showMonitoringPage(): void
     {
         // Vérifie si l'utilisateur est connecté
@@ -201,9 +198,6 @@ class AdminController
         $mostViewedArticles = $articleManager->getMostViewedArticles();
         $articles = $articleManager->getArticlesWithCommentCount($orderBy, $orderDir);
 
-        // var_dump($mostViewedArticles);
-        // die();
-
         // Chargement de la vue
         $view = new View("Monitoring");
         $view->render("monitoring", [
@@ -216,6 +210,4 @@ class AdminController
             'nextOrderDir' => ($orderDir === 'asc') ? 'desc' : 'asc'
         ]);
     }
-    // FIN
 }
-

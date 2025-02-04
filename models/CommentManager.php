@@ -48,7 +48,7 @@ class CommentManager extends AbstractEntityManager
         return $result->rowCount() > 0;
     }
 
-     /**
+    /**
      * Supprime un commentaire par ID.
      */
     public function deleteCommentById(int $commentId): void
@@ -57,7 +57,6 @@ class CommentManager extends AbstractEntityManager
         $this->db->query($sql, ['id' => $commentId]);
     }
 
-    // ICI
     /**
      * Récupère les commentaires paginés d'un article.
      */
@@ -113,5 +112,4 @@ class CommentManager extends AbstractEntityManager
         $query->execute($params);
         return (int) $query->fetchColumn();
     }
-    // FIN
 }

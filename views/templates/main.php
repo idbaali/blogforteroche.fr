@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    
+
     <header>
         <nav>
             <a href="index.php">Articles</a>

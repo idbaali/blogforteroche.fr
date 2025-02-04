@@ -25,6 +25,7 @@ class ArticleController
         $id = Utils::request("id", -1);
 
         $articleManager = new ArticleManager();
+        $articleManager->incrementViews($id);
         $article = $articleManager->getArticleById($id);
 
         if (!$article) {
@@ -58,7 +59,6 @@ class ArticleController
         $view->render("apropos");
     }
 
-    // ICI
     public function showMonitoringPage(): void
     {
         // Récupération des paramètres de tri
@@ -78,5 +78,4 @@ class ArticleController
             'currentSort' => $orderBy,
         ]);
     }
-    // FIN  
 }

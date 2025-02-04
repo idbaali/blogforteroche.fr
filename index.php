@@ -1,5 +1,4 @@
 <?php
-
 require_once 'config/_config.php';
 require_once 'config/autoload.php';
 
@@ -74,16 +73,12 @@ try {
             $adminController->deleteArticle();
             break;
 
-            // Ici
-
         case 'showMonitoringPage':
-            // echo "Routage vers showMonitoringPage <br>";
-
             $adminController = new AdminController();
             $adminController->showMonitoringPage();
             break;
 
-        case 'showComment':
+        case 'showComments':
             $commentController = new CommentController();
             $commentController->showComment();
             break;

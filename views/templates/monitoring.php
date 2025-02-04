@@ -5,17 +5,19 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
+        width: 100%;
     }
 
     /* Tableaux stylisés */
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color:#99a140;
+        background-color: #99a140;
         color: white;
     }
 
-    th, td {
+    th,
+    td {
         border: 1px solid #ccc;
         padding: 10px;
         text-align: left;
@@ -36,7 +38,7 @@
     /* Boutons */
     .submit {
         padding: 8px 20px;
-        width: 325px;
+        width: 340px;
     }
 
     .submit:hover {
@@ -63,7 +65,7 @@
 <div class="container">
     <div class="header-links">
         <h2>Gestion des Articles</h2>
-        <a class="submit" href="index.php?action=showComment">Edition des commentaires</a>
+        <a class="submit" href="index.php?action=showComments">Accéder aux commentaires</a>
     </div>
 
     <table>
