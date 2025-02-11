@@ -76,15 +76,8 @@ class CommentManager extends AbstractEntityManager
         $sql .= " ORDER BY date_creation DESC LIMIT $offset, $commentsPerPage";
 
         // Préparation de la requête
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql, $params);
 
-        // Liaison des paramètres
-        if ($articleId > 0) {
-            $query->bindValue(':articleId', $articleId, PDO::PARAM_INT);
-        }
-
-        // Exécution de la requête
-        $query->execute();
 
         // Récupération des résultats sous forme d'objets Comment
         $comments = [];
@@ -107,9 +100,8 @@ class CommentManager extends AbstractEntityManager
             $sql .= " WHERE id_article = :articleId";
             $params['articleId'] = $articleId;
         }
+        $query = $this->db->query($sql, $params);
 
-        $query = $this->db->query($sql);
-        $query->execute($params);
         return (int) $query->fetchColumn();
     }
 }

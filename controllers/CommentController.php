@@ -54,7 +54,7 @@ class CommentController
 
     public function showComment(): void
     {
-        $articleId = Utils::request("articleId", 0);
+        $articleId = Utils::request("id", 0);
         $currentPage = Utils::request("page", 1);
 
         $commentManager = new CommentManager();
