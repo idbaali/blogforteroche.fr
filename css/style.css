@@ -371,97 +371,104 @@ a.info {
     width: 100%;
 }
 
-/* Tableaux stylisés */
+.container .submit {
+    padding: 8px 20px;
+    width: 350px;
+    background-color: #556b2f;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.container .submit:hover {
+    background-color: #445522;
+}
+
+/* Tableau */
 .container table {
     width: 100%;
     border-collapse: collapse;
     background-color: #99a140;
     color: white;
+    font-size: 14px;
 }
 
+/* En-têtes du tableau */
+.container thead th {
+    background-color: #556b2f;
+    padding: 12px 10px;
+    text-align: left;
+}
+
+/* Alternance des lignes */
+.container tbody tr:nth-child(even) {
+    background-color: #556b2f;
+}
+
+.container tbody tr:nth-child(odd) {
+    background-color: #99a140;
+}
+
+/* Contenu des cellules */
 .container th,
-td {
+.container td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
 /* Liens dans les colonnes du tableau */
-.container th a {
+.container th a,
+.container td a {
     text-decoration: none;
     color: white;
-    display: flex;
+    display: inline-flex;
     align-items: center;
 }
 
-.container th a i {
-    margin-left: 10px;
-}
-
-/* Boutons */
-.container .submit {
-    padding: 8px 20px;
-    width: 340px;
-}
-
-.container .submit:hover {
-    background-color: #556b2f;
-}
-
-/* Style du lien "Voir" */
+/* Lien "Voir les commentaires" */
 .container .view-comments {
-    background-color: #556b2f;
+    background-color: #445522;
     color: white;
     padding: 5px 8px;
     border-radius: 5px;
-    text-decoration: none;
     font-size: 12px;
-    margin-left: 10px;
-    display: inline-block;
+    text-decoration: none;
 }
 
 .container .view-comments:hover {
-    background-color: #556b2f;
+    background-color: #334411;
+}
+
+/* Survol des lignes */
+.container tbody tr:hover {
+    background-color: #e0e5a0;
 }
 
 /**
  * Partie showComments
  */
+/* Conteneur */
 .container {
     width: 90%;
     margin: auto;
 }
 
-/* Aligner les liens sur la même ligne */
+/* En-tête avec le titre et le lien de retour */
 .show .header-links {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Tableaux stylisés */
-.show table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #99a140;
-    color: white;
+.show .header-links h2 {
+    font-size: 24px;
+    color: #556b2f;
+    margin: 0;
 }
 
-.show th,
-td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
-
-.show td a.view-article {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 5px;
-}
-
-/* Boutons */
 .show .submit {
     padding: 8px 20px;
     width: 225px;
@@ -469,14 +476,49 @@ td {
     color: white;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .show .submit:hover {
     background-color: #445522;
 }
 
-/* Style du lien "Voir" */
+/* Tableau */
+.show table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #99a140;
+    color: white;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+/* En-têtes du tableau */
+.show thead th {
+    background-color: #556b2f;
+    padding: 12px 10px;
+    text-align: left;
+}
+
+/* Alternance des lignes pour plus de lisibilité */
+.show tbody tr:nth-child(even) {
+    background-color: #556b2f;
+}
+
+.show tbody tr:nth-child(odd) {
+    background-color: #99a140;
+}
+
+/* Contenu des cellules */
+.show th,
+.show td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Liens "Voir" */
 .show .view-article {
     background-color: #445522;
     color: white;
@@ -484,12 +526,36 @@ td {
     border-radius: 5px;
     text-decoration: none;
     font-size: 12px;
-    margin-left: 10px;
-    display: inline-block;
 }
 
 .show .view-article:hover {
-    background-color: #445522;
+    background-color: #334411; /* Vert plus foncé au survol */
+}
+
+/* Lien "Supprimer" */
+.show td a[href*="deleteComment"] {
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.show td a[href*="deleteComment"]:hover {
+    background-color: #990000; /* Rouge foncé */
+}
+
+/* Message "Aucun commentaire" */
+.show tbody td[colspan="6"] {
+    text-align: center;
+    font-style: italic;
+    color: #333;
+    padding: 20px;
+}
+
+/* Survol des lignes */
+.show tbody tr:hover {
+    background-color: #e0e5a0;
 }
 
 /** 
@@ -501,7 +567,6 @@ footer {
     display: flex;
     justify-content: center;
     width: 100%;
-    ;
     padding: 20px;
     color: white;
     background-color: var(--headerColor);
