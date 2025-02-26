@@ -79,8 +79,7 @@ class CommentController
         if ($commentId > 0) {
             $commentManager = new CommentManager();
             $commentManager->deleteCommentById($commentId);
+            $this->showComment();
         }
-        header("Location: index.php?action=showComment");
-        exit;
     }
 }
